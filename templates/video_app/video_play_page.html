@@ -1,0 +1,117 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block home %}
+
+
+    <!-- コンテンツ -->
+    <div class="container mx-auto my-8">
+        <!-- 動画プレイヤー -->
+        <div class="mt-8 md:flex md:items-center">
+            <video id="video-player" class="w-full md:w-3/4 lg:w-1/2 md:mr-8" poster="{% static 'img/DANCE-LIVE-Xmas-PARTY/ecstasy.png' %}" controls playsinline></video>
+            <!-- 画質選択 -->
+            <div class="md:w-1/4 lg:w-1/6">
+                <select id="quality-select" class="block w-full bg-white border border-gray-300 rounded-md py-2 px-3 focus:outline-none focus:ring focus:ring-blue-300">
+                    <option value="auto" selected>自動</option>
+                    <option value="4k">4K</option>
+                    <option value="fullhd">Full HD</option>
+                    <option value="hd">HD</option>
+                    <option value="sd">SD</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- 操作ボタン -->
+        <div class="flex justify-center mt-8">
+            <button id="rewind-button" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-full mr-4">10秒巻き戻し</button>
+            <button id="play-button" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-full mr-4">再生/一時停止</button>
+            <button id="forward-button" class="bg-blue-500 text-white font-bold py-2 px-4 rounded-full">10秒早送り</button>
+        </div>
+    </div>
+
+    <!-- スクリプト -->
+    <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+    <script>
+        // HLS動画のURL
+        const videoUrl = "{% static 'hls/DANCE-LIVE-Xmas-PARTY/ecstasy/ecstasy_playlist.m3u8' %}";
+        // 動画プレイヤー
+        const videoPlayer = document.getElementById("video-player");
+        // 再生/一時停止ボタン
+        const playButton = document.getElementById("play-button");
+        // 10秒巻き戻しボタン
+            const rewindButton = document.getElementById("rewind-button");
+        // 10秒早送りボタン
+        const forwardButton = document.getElementById("forward-button");
+        // 画質選択セレクトボックス
+        const qualitySelect = document.getElementById("quality-select");
+
+        // hls.jsのセットアップ
+        if (Hls.isSupported()) {
+            const hls = new Hls();
+            hls.loadSource(videoUrl);
+            hls.attachMedia(videoPlayer);
+            hls.on(Hls.Events.MANIFEST_PARSED, function() {
+                // hls.jsで利用可能な品質を取得
+                const availableQualities = hls.levels.map(level => level.height);
+                // セレクトボックスの選択肢を生成
+                const options = availableQualities.map(height => {
+                    let label;
+                    switch (height) {
+                        case 2160:
+                            label = "4K";
+                            break;
+                        case 1080:
+                            label = "Full HD";
+                            break;
+                        case 720:
+                            label = "HD";
+                            break;
+                        default:
+                            label = `${height}p`;
+                            break;
+                    }
+                    return `<option value="${height}">${label}</option>`;
+                });
+                // セレクトボックスに選択肢を追加
+                qualitySelect.innerHTML = options.join("");
+                // セレクトボックスの初期値を自動に設定
+                qualitySelect.value = "auto";
+                // 品質選択時の処理
+                qualitySelect.addEventListener("change", function() {
+                    const quality = qualitySelect.value;
+                    if (quality === "auto") {
+                        hls.currentLevel = -1;
+                    } else {
+                        const index = availableQualities.findIndex(height => height === parseInt(quality));
+                        hls.currentLevel = index;
+                    }
+                });
+            });
+        }
+
+        // 再生/一時停止ボタンのクリック処理
+        playButton.addEventListener("click", function() {
+            if (videoPlayer.paused) {
+                videoPlayer.play();
+                playButton.textContent = "一時停止";
+            } else {
+                videoPlayer.pause();
+                playButton.textContent = "再生";
+            }
+        });
+
+        // 10秒巻き戻しボタンのクリック処理
+        rewindButton.addEventListener("click", function() {
+            videoPlayer.currentTime -= 10;
+        });
+
+        // 10秒早送りボタンのクリック処理
+        forwardButton.addEventListener("click", function() {
+            videoPlayer.currentTime += 10;
+        });
+    </script>
+
+
+
+
+
+{% endblock %}

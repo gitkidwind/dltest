@@ -1,0 +1,25 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contact %}
+<div class="max-w-xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:px-8">
+    <div class="text-center">
+        <svg class="mx-auto h-12 w-12 text-green-500" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+        </svg>
+        <h2 class="mt-2 text-3xl font-extrabold text-gray-900 sm:text-4xl">
+            お問い合わせを受け付けました
+        </h2>
+        <p class="mt-2 text-lg text-gray-600">
+            お問い合わせいただき、ありがとうございました。後日担当者からご連絡いたしますので、しばらくお待ちください。
+        </p>
+    </div>
+    <div class="mt-8 flex justify-center">
+        <div class="inline-flex rounded-md shadow">
+            <a href="{% url 'home_app:home_page' %}" class="inline-flex items-center justify-center px-5 py-3 border border-transparent text-base font-medium rounded-md text-white bg-green-600 hover:bg-green-700">
+                トップページに戻る
+            </a>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

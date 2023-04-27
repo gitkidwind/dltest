@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block register %}
+<div class="bg-pink-700 p-2 mt-4">
+    <h1 class="m-2 text-2xl text-white font-bold md:text-4xl">アカウント情報</h1>
+</div>
+<div class="my-10 p-4 md:w-1/2 mx-auto">
+<div class="p-4">
+    
+        <div class="grid gap-6 mb-6 md:grid-cols-2">
+            <div>
+            <span class="block mb-2 text-xl font-medium text-gray-900">お名前 : {{ user.first_name }}  {{ user.last_name }}</span>
+            </div>
+        </div>
+        <div class="mb-6">
+            <span class="block mb-2 text-xl font-medium text-gray-900">Eメール : {{ user.email }}</span>
+        </div> 
+
+        <div class="mb-6">
+            <span class="block mb-2 text-xl font-medium text-gray-900">パスワード : ***********</span>
+        </div> 
+
+        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+        <a href="{% url 'login_app:user_profile_edit_view' %}">編集</a>
+        </button>
+        <button type="submit" class="text-white bg-red-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">
+            <a href="{% url 'login_app:password_change_view' %}">パスワード変更はこちら</a>
+        </button>
+    </form>
+</div>
+</div>    
+
+{% endblock %}

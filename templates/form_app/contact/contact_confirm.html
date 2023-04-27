@@ -1,0 +1,45 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contact %}
+
+
+
+<div class="bg-pink-700 p-2 mt-4">
+    <h1 class="m-2 text-2xl text-white font-bold md:text-4xl">お問い合わせ確認</h1>
+</div>
+<div class="my-10 p-4 md:w-1/2 mx-auto">
+<div class="p-4">
+{{ form.errors }}
+    <form method="POST" action="{% url 'form_app:contact_complete_view' %}">
+        {% csrf_token %}
+        <p class="text-xl font-bold mb-6">以下の内容で送信しますか？</p>
+        <div class="grid gap-6 mb-6 md:grid-cols-2">
+            <div>
+                <label for="id_first_name" class="block mb-2 text-sm font-medium text-gray-900 ">姓</label>
+                {{ form.first_name.value }}
+            </div>
+            <div>
+                <label for="id_{{ form.last_name.name }}" class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.last_name.label }}</label>
+                {{ form.last_name.value }}
+
+            </div>
+            <div>
+                <label for="id_{{ form.telphone_number.name }}" class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.telphone_number.label }}</label>
+                {{ form.telphone_number.value }}
+            </div>
+        </div>
+        <div class="mb-6">
+            <label for="id_{{ form.email.name }}" class="block mb-2 text-sm font-medium text-gray-900 ">Eメール</label>
+            {{ form.email.value }}
+        </div> 
+        <div class="mb-6">
+        <label for="id_{{ form.content.name }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">内容</label>
+        {{ form.content.value }}
+        </div>
+        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">送信</button>
+        <button type="button" onclick="window.history.back()"class="text-white bg-red-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">戻る</button>
+    </form>
+</div>
+</div>    
+
+{% endblock %}

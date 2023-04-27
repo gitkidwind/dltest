@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block home %}
+
+
+<div class="bg-pink-700 p-2 mt-4">
+    <h1 class="m-2 text-2xl text-white font-bold md:text-4xl">danceliveとは？</h1>
+</div>
+
+<main class="flex-1 p-4">
+
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+      <div class="bg-gray-100 p-4">
+        <div class="flex justify-center p-2">
+            <img src="{% static 'img\images.jpg' %}" alt="" class="rounded-md">
+        </div>
+        <span>大阪府堺市(なかもず・深井・白鷺・鳳)を中心に和泉府中・泉大津などで教室を開講しているダンススクールです。</span>
+      </div>
+      <div class="bg-gray-100 p-4">
+        <div class="flex justify-center p-2">
+            <img src="{% static 'img\images.jpg' %}" alt="" class="rounded-md">
+        </div>
+        <span>
+        小さなキッズから学生の方、大人まで
+        誰でも気軽に始めれるクラスをご用意しています。
+        初心者の方でも気軽に踊る事ができるダンサーを育てます。</span>
+      
+       </div>
+      <div class="bg-gray-100 p-4">
+        <div class="flex justify-center p-2">
+            <img src="{% static 'img\images.jpg' %}" alt="" class="rounded-md">
+        </div>
+        <span>
+        毎週のレッスンでしっかりと基本を身につけ、
+        発表会、イベント、コンテストを一つの目標にし、
+        レベルアップ・スキルアップを目指して一緒に頑張りましょう。
+        </span>
+       </div>
+    </div>
+    <div class="py-10">
+        <h1>代表挨拶</h1>
+        <p>どこで生れたか頓（とん）と見当がつかぬ。何でも薄暗いじめじめした所でニャーニャー泣いていた事だけは記憶している。吾輩はここで始めて人間というものを見た。しかもあとで聞くとそれは書生という人間中で一番獰悪（どうあく）な種族であったそうだ。この書生というのは時々我々を捕（つかま）えて煮て食うという話である。しかしその当時は何という考（かんがえ）もなかったから別段恐しいとも思わなかった。ただ彼の掌（てのひら）に載せられてスーと持ち上げられた時何だかフワフワした感じがあったばかりである。掌の上で少し落ち付いて書生の顔を見たのがいわゆる人間というものの見始（みはじめ）であろう。この時妙なものだと思った感じが今でも残っている。第一毛を以て装飾されべきはずの顔がつるつるしてまるで薬缶（やかん）だ。その後猫にも大分逢（あ）ったがこんな片輪には一度も出会（でく）わした事がない。のみならず顔の真中が余りに突起している。そうしてその穴の中から時々ぷうぷうと烟（けむり）を吹く。どうも咽（む）せぽくて実に弱った。これが人間の飲む烟草（タバコ）というものである事は漸（ようや）くこの頃（ごろ）知った。</p>
+    </div>
+
+  </main>
+
+{% endblock %}

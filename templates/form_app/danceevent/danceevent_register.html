@@ -1,0 +1,74 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% block contact %}
+
+  
+
+
+
+
+
+<div class="bg-pink-700 p-2 mt-4">
+    <h1 class="m-2 text-2xl text-white font-bold md:text-4xl">イベント申し込み</h1>
+</div>
+<a href="{% url 'form_app:dancework_new' %}">Add New Dance Work</a>
+
+<div class="my-10 p-4 md:w-1/2 mx-auto">
+<div class="p-4">
+    {% if form.errors %}
+    {% for error in form.errors.values %}
+    <div class="text-xl text-red-600 pb-2 py-2">
+        <span>{{ error }}</span>
+    </div>
+    {% endfor %}
+    {% endif %}
+    <form method="POST" action="{% url 'form_app:register_dance_event' %}">
+        {% csrf_token %}
+        <div class="grid gap-6 mb-6 md:grid-cols-2">
+            <div>
+                <label for="id_{{ form.event.name }}" class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.event.label }}</label>
+                <select type="text" id="id_{{ form.event.name }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" maxlength="15" name="{{ form.event.name }}" required>
+                    <option value="" selected disabled>選択してください</option>
+                    {% for event in events %}
+                    <option value="{{ event.pk }}">{{ event.event_title}}</option>
+                    <option value="{{ event.pk }}">{{ event.ticket_info}}</option>
+
+                    {% endfor %}
+                </select>
+            </div>
+            <div></div>
+
+            <div>
+                <label for="id_{{ form.child_users.name }}" class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.child_users.label }}</label>
+                <div class="flex gap-4">
+                {% for child_user in form.child_users %}
+                    <p>{{ child_user }}</p>
+                    {% endfor %}
+                </div>
+
+            </div>
+
+            <div>
+                <label for="id_{{ form.dance_works.name }}" class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.dance_works.label }}</label>
+
+                <div class="flex gap-4">
+                    {% for dance_work in form.dance_works %}
+                    <p>{{ dance_work }}</p>
+
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+       
+        <button type="submit" id="submit-btn" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">送信</button>
+    </form>
+</div>
+
+</div>    
+
+
+
+
+{% endblock %}

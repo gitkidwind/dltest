@@ -1,0 +1,83 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contact %}
+
+<div class="bg-pink-700 p-2 mt-4">
+    <h1 class="m-2 text-2xl text-white font-bold md:text-4xl">体験レッスン申し込み</h1>
+</div>
+<div class="my-10 p-4 md:w-1/2 mx-auto">
+<div class="p-4">
+    {% if form.errors %}
+    {% for error in form.errors.values %}
+    <div class="text-xl text-red-600 pb-2 py-2">
+        <span>{{ error }}</span>
+    </div>
+    {% endfor %}
+    {% endif %}
+    <form action="{% url 'form_app:dance_lesson_contact_view' %}" method="POST">
+        {% csrf_token %}
+        <div class="grid gap-6 mb-6 md:grid-cols-2">
+            <div>
+                <label for="id_{{ form.name.name }}" class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.name.label }}</label>
+                <input type="text" id="id_{{ form.name.name }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="{{ form.name.label }}" name="{{ form.name.name }}" maxlength="30" required>
+            </div>
+            <div>
+                <label for="id_{{ form.parent_name.name }}" class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.parent_name.label }}</label>
+                <input type="text" id="id_{{ form.parent_name.name }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="{{ form.parent_name.label }}" name="{{ form.parent_name.name }}" maxlength="30" required>
+            </div>
+            <div>
+                <label for="id_{{ form.age.name }}" class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.age.label }}</label>
+                <input type="text" id="id_{{ form.age.name }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="{{ form.age.label }}" name="{{ form.age.name }}" maxlength="30" required>
+            </div>
+            <div>
+                <label for="id_{{ form.gender.name }}" class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.gender.label }}</label>
+                <select type="text" id="id_{{ form.gender.name }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="{{ form.gender.label }}" name="{{ form.gender.name }}" maxlength="30" required>
+                    <option value="" selected disabled>選択してください</option>
+                    {% for choice in gender_choices %}
+                    <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                    {% endfor %}
+                </select>
+
+            
+            </div>
+            <div>
+                <label for="id_{{ form.desired_date.name }}" class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.desired_date.label }}</label>
+                <input type="date" id="id_{{ form.desired_date.name }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="{{ form.desired_date.label }}" name="{{ form.desired_date.name }}" maxlength="30" required>
+            </div>
+            <div>
+                <label for="id_{{ form.desired_class.name }}" class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.desired_class.label }}</label>
+                <select type="text" id="id_{{ form.desired_class.name }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="" maxlength="15" name="{{ form.desired_class.name }}" required>
+                    <option value="" selected disabled>選択してください</option>
+                    {% for choice in class_choices %}
+                    <option value="{{ choice.0 }}">{{ choice.1 }}</option>
+                    {% endfor %}
+                </select>
+
+
+            </div>
+            <div>
+                <label for="id_{{ form.telphone_number.name }}" class="block mb-2 text-sm font-medium text-gray-900 ">{{ form.telphone_number.label }}</label>
+                <input type="text" id="id_{{ form.telphone_number.name }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="09012345678" maxlength="15" name="{{ form.telphone_number.name }}" required>
+            </div>
+
+        </div>
+        <div class="mb-6">
+            <label for="id_{{ form.email.name }}" class="block mb-2 text-sm font-medium text-gray-900 ">Eメール</label>
+            <input type="email" id="id_{{ form.email.name }}" class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5" placeholder="xxx@yyy.zzz" maxlength="255" name="{{ form.email.name }}" required>
+        </div> 
+
+        <label for="id_{{ form.content.name }}" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">内容</label>
+        <textarea id="id_{{ form.content.name }}" rows="5" cols="40" class="block p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 " maxlength="1000" name="{{ form.content.name }}" placeholder=""></textarea>
+         
+        <div class="flex items-start mb-6">
+            <div class="flex items-center h-5">
+            <input id="remember" type="checkbox" value="" class="w-4 h-4 border border-gray-300 rounded bg-gray-50 focus:ring-3 focus:ring-blue-300" required>
+            </div>
+            <label for="remember" class="ml-2 text-sm font-medium text-gray-900 dark:text-gray-300">利用規約の同意  <a href="#" class="text-blue-600 hover:underline">詳細</a></label>
+        </div>
+        <button type="submit" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center">送信</button>
+    </form>
+</div>
+</div>    
+
+{% endblock %}

@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block contact %}
+
+  <h1>申し込み情報削除</h1>
+  <p>以下の申し込み情報を削除します。よろしいですか？</p>
+
+  <table class="table table-bordered table-hover">
+    <tr>
+      <th>イベント</th>
+      <td>{{ registration.event }}</td>
+    </tr>
+    <tr>
+      <th>参加者</th>
+      <td>
+        <ul>
+          {% for child_user in registration.child_users.all %}
+            <li>{{ child_user }}</li>
+          {% empty %}
+            <li>なし</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+    <tr>
+      <th>出演曲</th>
+      <td>
+        <ul>
+          {% for dance_work in registration.dance_works.all %}
+            <li>{{ dance_work }}</li>
+          {% empty %}
+            <li>なし</li>
+          {% endfor %}
+        </ul>
+      </td>
+    </tr>
+  </table>
+
+  <form action="{% url 'form_app:register_dance_event_delete' registration.pk %}" method="post">
+    {% csrf_token %}
+    <input type="submit" value="削除する" class="btn btn-danger">
+    <a href="{% url 'form_app:register_dance_event_list' %}" class="btn btn-secondary">キャンセル</a>
+  </form>
+
+
+{% endblock %}
