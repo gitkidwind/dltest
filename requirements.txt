@@ -16,9 +16,6 @@ mysqlclient
 django-markdownx
 django-environ
 django-tailwind
-yt-dlp
 mysql
-pandas
-pydub
-soundfile
 requests
+line-bot-sdk
